@@ -15,6 +15,7 @@ namespace INFO5101_Project1
         private string Province;
         private double latitude;
         private double longitude;
+        private bool IsCapital = false; //not included in the pdf
 
         public CityInfo(int CityId, string CityName, string CityAscii, int Population, string Province, double latitude, double longitude)
         {
@@ -42,5 +43,5 @@ namespace INFO5101_Project1
             return new Tuple<double, double>(latitude, longitude);
         }
         
-    }
-}
+    }//End of class
+}//End of namespace
