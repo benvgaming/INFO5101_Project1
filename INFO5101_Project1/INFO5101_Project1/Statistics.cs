@@ -12,7 +12,7 @@ namespace INFO5101_Project1
 
         public Statistics(string fileName, string type)
         {
-            CityCatalogue = DataModeler.ParseFile(fileName, type);
+            //CityCatalogue = DataModeler.ParseFile(fileName, type);
         } //End of c'tor
 
         public CityInfo DisplayCityInformation(string CityName)

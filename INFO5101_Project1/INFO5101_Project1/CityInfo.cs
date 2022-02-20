@@ -42,6 +42,11 @@ namespace INFO5101_Project1
         {
             return new Tuple<double, double>(latitude, longitude);
         }
+
+        public string GetName()
+        {
+            return CityName;
+        }
         
     }//End of class
 }//End of namespace
