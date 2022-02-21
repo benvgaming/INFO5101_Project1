@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace INFO5101_Project1
 {
-    public class CityInfo
+    public class CityInfo 
     {
         private int CityId;
         private string CityName;
@@ -62,7 +62,5 @@ namespace INFO5101_Project1
         {
             return CityName;
         }
-
-
     }//End of class
 }//End of namespace

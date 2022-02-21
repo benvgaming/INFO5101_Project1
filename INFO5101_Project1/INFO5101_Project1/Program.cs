@@ -80,11 +80,12 @@ namespace INFO5101_Project1
                         Console.WriteLine("\n1)Display city information" +
                           "\n2)Display province cities" +
                           "\n3)Calculate province population" +
-                          "\n4)Match cities population" +
-                          "\n5)Distance between cities" +
-                          "\n6)Restart the program and choose another file type to query" +
+                          "\n4)Display city with largest population in a province" +
+                          "\n5)Display city with smallest population in a province" +
+                          "\n6)Distance between cities" +
                           "\n7)Display city on website" +
 
+                          "\n8)Restart the program and choose another file type to query" +
                           "\n0)Exit the program");
 
                         validChoice = false;
@@ -103,7 +104,10 @@ namespace INFO5101_Project1
                                 Console.WriteLine("The selection must be 0 to 7");
                         } while (!validChoice);
 
-
+                        string province = "";
+                        string city1 = "";
+                        string city2 = "";
+                        CityInfo city = null;
                         switch (selection)
                         {
                             case 1:
@@ -111,29 +115,52 @@ namespace INFO5101_Project1
                                 break;
 
                             case 2:
-                                //Calculate Province population
+                                //Display province cities
+                                Console.WriteLine("Enter Province's Name: ");
+                                province = Console.ReadLine();
+                                statistics.DisplayProvinceCities(province);
                                 break;
                             case 3:
-                                //Match Cities population
+                                //Calculate Province population
+                                Console.WriteLine("Enter Province's Name: ");
+                                province = Console.ReadLine();
+                                statistics.DisplayProvincePopulation(province);
                                 break;
                             case 4:
-
+                                //Display Largest population
+                                Console.WriteLine("Enter Province's Name: ");
+                                province = Console.ReadLine();
+                                city = statistics.DisplayLargestPopulationCity(province);
+                                Console.WriteLine($"City with the smallest population in {province} province is {city.GetName()}");
                                 break;
                             case 5:
-
+                                //Display smallest population
+                                Console.WriteLine("Enter Province's Name: ");
+                                province = Console.ReadLine();
+                                city = statistics.DisplayLargestPopulationCity(province);
+                                Console.WriteLine($"City with the smallest population in {province} province is {city.GetName()}");
                                 break;
                             case 6:
-                                isDone = true;
-                                Console.Clear();
+                                //Distance between cities
+                                Console.WriteLine("Enter City 1's Name: ");
+                                city1 = Console.ReadLine();
+                                Console.WriteLine("Enter City 2's Name: ");
+                                city2 = Console.ReadLine();
+                                statistics.CalculateDistanceBetweenCities(city1, city2);
                                 break;
                             case 7:
                                 //Show City On Map
                                 Console.WriteLine("Enter City's Name: ");
-                                string cityName = Console.ReadLine();
+                                city1 = Console.ReadLine();
                                 Console.WriteLine("Enter Province's Name: ");
-                                string provinceName = Console.ReadLine();
-                                statistics.ShowCityOnMap(cityName, provinceName);
+                                province = Console.ReadLine();
+                                statistics.ShowCityOnMap(city1, province);
                                 break;
+                            case 8:
+                                isDone = true;
+                                Console.Clear();
+                                break;
+
                             case 0:
                                 Environment.Exit(0);
                                 break;

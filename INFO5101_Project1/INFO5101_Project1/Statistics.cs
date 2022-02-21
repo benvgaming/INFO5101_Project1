@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace INFO5101_Project1
 {
-    public class Statistics
+    public class Statistics 
     {
         public Dictionary<string, List<CityInfo>> CityCatalogue;
 
@@ -34,7 +34,9 @@ namespace INFO5101_Project1
             }
             if (CityList.Count > 0)
             {
+                //Need to be fixed
                 city = CityList.Values.Max();
+                
             }
             return city.First();
         }// End of DisplayLargestPopulationCity
@@ -52,6 +54,7 @@ namespace INFO5101_Project1
             }
             if (CityList.Count > 0)
             {
+                //Need to be fixed
                 city = CityList.Values.Min();
             }
             return city.First();
@@ -109,8 +112,11 @@ namespace INFO5101_Project1
 
         public void DisplayProvincePopulation(string Province)
         {
-            //display the population of the province
+            if (Province == "Quebec")
+                Province = "Québec";
             int population = 0;
+            
+            //display the population of the province
             foreach (KeyValuePair<string, List<CityInfo>> entry in CityCatalogue)
             {
                 if (entry.Value[0].GetProvince() == Province)
@@ -118,13 +124,18 @@ namespace INFO5101_Project1
                     population += entry.Value[0].GetPopulation();
                 }
             }
-            Console.WriteLine("The population of {0} is {1}", Province, population);
+            if(population != 0)
+                Console.WriteLine("The population of {0} is {1}", Province, population);
+            else
+                Console.WriteLine("Province's name is incorrect");
         }// End of DisplayProvincePopulation
 
         public void DisplayProvinceCities(string Province)
         {
+
+            if (Province == "Quebec")
+                Province = "Québec";
             //display the cities in the province
-            List<CityInfo> city = null;
             Dictionary<string, List<CityInfo>> CityList = new Dictionary<string, List<CityInfo>>();
             foreach (KeyValuePair<string, List<CityInfo>> entry in CityCatalogue)
             {
@@ -134,13 +145,12 @@ namespace INFO5101_Project1
                 }
             }
             if (CityList.Count > 0)
-            {
-                city = CityList.Values.First();
-            }
-            foreach (CityInfo entry in city)
-            {
-                Console.WriteLine(entry.GetName());
-            }
+                foreach (var entry in CityList.Values)
+                {
+                    Console.WriteLine(entry.First().GetName());
+                }
+            else
+                Console.WriteLine("Province's name is incorrect");
         }// End of DisplayProvinceCities
         public void RankProvincesByPopulation()
         {
@@ -221,8 +231,5 @@ namespace INFO5101_Project1
 
             return dist;
         }
-
-
-
     }//End of class
 }//End of namespace
