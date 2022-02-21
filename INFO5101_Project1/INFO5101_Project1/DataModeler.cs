@@ -14,15 +14,15 @@ namespace INFO5101_Project1
 
         private class JsonCity
         {
-            public string city;
-            public string city_ascii;
-            public double lat;
-            public double lng;
-            public string country;
-            public string admin_name;
-            public string capital;
-            public int population;
-            public int id;
+            public string city = "" ;
+            public string city_ascii = "" ;
+            public double lat = 0.0;
+            public double lng = 0.0;
+            public string country = "" ;
+            public string admin_name = "" ;
+            public string capital = "" ;
+            public int population = 0;
+            public int id = 0;
 
         }
 
@@ -101,7 +101,8 @@ namespace INFO5101_Project1
 
                 CityCatalogue[city.city].Add(cityObj);
             }
-        }
+        }//End of ParseJSON
+
         private static void ParseCSV(string fileName)
         {
             StreamReader reader = new StreamReader(fileName);
@@ -128,7 +129,7 @@ namespace INFO5101_Project1
 
                 CityCatalogue[name].Add(city);
             }
-        }
+        }//End of ParseCSV
 
         public static Dictionary<string, List<CityInfo>> ParseFile(string fileName, string type)
         {
@@ -146,6 +147,6 @@ namespace INFO5101_Project1
                 default:
                     return new Dictionary<string, List<CityInfo>>();
             }
-        }
-    }
-}
+        }//End of ParseFile()
+    }//End of class
+}//End of namespace

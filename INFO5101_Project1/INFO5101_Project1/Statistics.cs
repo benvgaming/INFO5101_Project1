@@ -103,27 +103,27 @@ namespace INFO5101_Project1
         public void ShowCityOnMap(string CityName, string Province)
         {
             // search through the catalogue to find the longitude and latitude of the city
+
+            double lng = 0.0;
+            double lat = 0.0;
             foreach (KeyValuePair<string, List<CityInfo>> entry in CityCatalogue)
             {
                 if (entry.Value[0].GetProvince() == Province && entry.Key == CityName)
                 {
                     Console.WriteLine("Longitude: " + entry.Value[0].GetLongitude());
+                    
                     Console.WriteLine("Latitude: " + entry.Value[0].GetLatitude());
+                    lng = entry.Value[0].GetLongitude();
+                    lat = entry.Value[0].GetLatitude();
                 }
             }
-            // foreach (KeyValuePair<string, List<CityInfo>> entry in CityCatalogue)
-            // {
-            //     if (entry.Value[0].GetProvince() == Province && entry.Key == CityName)
-            //     {
-            //         // call the map class to show the city on the map
-            //         Map.ShowCityOnMap(entry.Value[0].GetLongitude(), entry.Value[0].GetLatitude());
-            //     }
-            // }
+
             //show the map in google maps with the longitude and latitude of the city
             //load the map with the longitude and latitude of the city
             // open google maps with location of the city from the catalogue using the longitude and latitude
-
-
+            System.Diagnostics.Process.Start(
+                new System.Diagnostics.ProcessStartInfo { FileName = "https://maps.google.com/?q=" + lat +"," + lng, UseShellExecute = true });
+            
 
 
             // throw new NotImplementedException();

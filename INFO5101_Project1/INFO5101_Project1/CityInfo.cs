@@ -15,7 +15,6 @@ namespace INFO5101_Project1
         private string Province;
         private double latitude;
         private double longitude;
-        private bool IsCapital = false; //not included in the pdf
         private string Capital;
 
         public CityInfo(int CityId, string CityName, string CityAscii, int Population, string Province, double latitude, double longitude, string capital)
