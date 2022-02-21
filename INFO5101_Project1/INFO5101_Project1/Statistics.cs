@@ -37,27 +37,6 @@ namespace INFO5101_Project1
                 city = CityList.Values.Max();
             }
             return city.First();
-
-            // //Search through the catalogue to find all the cities with the same province
-            // foreach(KeyValuePair<string,CityInfo> entry in CityCatalogue)
-            // {
-            //     if (entry.Value.GetProvince() == province)
-            //         CityList.Add(entry.Key,entry.Value);
-            // }
-
-            // //Find the city with the highest population
-            // int tempPop = 0;
-
-            // foreach(KeyValuePair<string,CityInfo> entry in CityList)
-            // {
-            //     if (entry.Value.GetPopulation() > tempPop)
-            //     {
-            //         city = entry.Value;
-            //         tempPop = entry.Value.GetPopulation();
-            //     }
-            // }
-
-            // return city;
         }// End of DisplayLargestPopulationCity
 
         public CityInfo DisplaySmallestPopulationCity(string province)
@@ -76,57 +55,31 @@ namespace INFO5101_Project1
                 city = CityList.Values.Min();
             }
             return city.First();
-
-
-            //Search through the catalogue to find all the cities with the same province
-            // foreach(KeyValuePair<string,CityInfo> entry in CityCatalogue)
-            // {
-            //     if (entry.Value.GetProvince() == province)
-            //         CityList.Add(entry.Key,entry.Value);
-            // }
-
-            // //Find the city with the lowest population
-            // int tempPop = CityList.First().Value.GetPopulation();
-            // city = CityList.First().Value;
-            // foreach(KeyValuePair<string,CityInfo> entry in CityList)
-            // {
-            //     if (entry.Value.GetPopulation() < tempPop)
-            //     {
-            //         city = entry.Value;
-            //         tempPop = entry.Value.GetPopulation();
-            //     }
-            // }
-
-            // return city;
         }// End of DisplaySmallestPopulationCity
 
         public void ShowCityOnMap(string CityName, string Province)
         {
-            // search through the catalogue to find the longitude and latitude of the city
 
             double lng = 0.0;
             double lat = 0.0;
+            // search through the catalogue to find the longitude and latitude of the city
             foreach (KeyValuePair<string, List<CityInfo>> entry in CityCatalogue)
             {
                 if (entry.Value[0].GetProvince() == Province && entry.Key == CityName)
                 {
-                    Console.WriteLine("Longitude: " + entry.Value[0].GetLongitude());
-                    
-                    Console.WriteLine("Latitude: " + entry.Value[0].GetLatitude());
                     lng = entry.Value[0].GetLongitude();
                     lat = entry.Value[0].GetLatitude();
+
+                    //show the map in google maps with the longitude and latitude of the city
+                    //load the map with the longitude and latitude of the city
+                    // open google maps with location of the city from the catalogue using the longitude and latitude
                 }
             }
 
-            //show the map in google maps with the longitude and latitude of the city
-            //load the map with the longitude and latitude of the city
-            // open google maps with location of the city from the catalogue using the longitude and latitude
-            System.Diagnostics.Process.Start(
-                new System.Diagnostics.ProcessStartInfo { FileName = "https://maps.google.com/?q=" + lat +"," + lng, UseShellExecute = true });
-            
-
-
-            // throw new NotImplementedException();
+            if(lat != 0.0 && lng != 0.0)
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo { FileName = "https://maps.google.com/?q=" + lat + "," + lng, UseShellExecute = true });
+            else
+                Console.WriteLine("Can't find city/province, be sure the name of both city and province are correct");
         }// End of ShowCityOnMap
 
         public void CalculateDistanceBetweenCities(string CityName1, string CityName2)
@@ -152,7 +105,6 @@ namespace INFO5101_Project1
             double distance = DistanceTo(lat1, lon1, lat2, lon2, 'K');
             //display the distance between the two cities
             Console.WriteLine("The distance between {0} and {1} is {2} km", CityName1, CityName2, distance);
-            // throw new NotImplementedException();
         }// End of CalculateDistanceBetweenCities
 
         public void DisplayProvincePopulation(string Province)
