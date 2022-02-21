@@ -16,8 +16,9 @@ namespace INFO5101_Project1
         private double latitude;
         private double longitude;
         private bool IsCapital = false; //not included in the pdf
+        private string Capital;
 
-        public CityInfo(int CityId, string CityName, string CityAscii, int Population, string Province, double latitude, double longitude)
+        public CityInfo(int CityId, string CityName, string CityAscii, int Population, string Province, double latitude, double longitude, string capital)
         {
             this.CityId = CityId;
             this.CityName = CityName;
@@ -26,6 +27,7 @@ namespace INFO5101_Project1
             this.Province = Province;
             this.latitude = latitude;
             this.longitude = longitude;
+            this.Capital = capital;
         }
 
         public string GetProvince()
@@ -38,15 +40,30 @@ namespace INFO5101_Project1
             return Population;
         }
 
+        public string GetCapital()
+        {
+            return Capital;
+        }
         public Tuple<double, double> GetLocation()
         {
             return new Tuple<double, double>(latitude, longitude);
         }
+        public double GetLatitude()
+        {
+            return latitude;
+        }
+        public double GetLongitude()
+        {
+            return longitude;
+        }
+
+
 
         public string GetName()
         {
             return CityName;
         }
-        
+
+
     }//End of class
 }//End of namespace

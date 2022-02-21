@@ -41,7 +41,7 @@ namespace INFO5101_Project1
             XmlNodeList canadaCities = xmlDoc.GetElementsByTagName("CanadaCity");
 
             List<CityInfo> cities = new List<CityInfo>();
-            foreach(XmlNode node in canadaCities)
+            foreach (XmlNode node in canadaCities)
             {
                 int population = 0;
                 int.TryParse(node.ChildNodes[7].InnerText, out population);
@@ -55,6 +55,8 @@ namespace INFO5101_Project1
                 double.TryParse(node.ChildNodes[2].InnerText, out lat);
                 double.TryParse(node.ChildNodes[3].InnerText, out lng);
 
+                string capital = node.ChildNodes[6].InnerText;
+
                 cities.Add(
                     new CityInfo(
                         id,
@@ -63,12 +65,13 @@ namespace INFO5101_Project1
                         population,
                         node.ChildNodes[5].InnerText,
                         lat,
-                        lng
+                        lng,
+                        capital
                         )
                     );
             }
 
-            foreach(CityInfo city in cities)
+            foreach (CityInfo city in cities)
             {
                 if (!CityCatalogue.ContainsKey(city.GetName()))
                 {
@@ -88,9 +91,9 @@ namespace INFO5101_Project1
             }
             List<JsonCity> output = JsonConvert.DeserializeObject<List<JsonCity>>(rawJson);
 
-            foreach(JsonCity city in output)
+            foreach (JsonCity city in output)
             {
-                CityInfo cityObj = new CityInfo(city.id, city.city, city.city_ascii, city.population, city.admin_name, city.lat, city.lng);
+                CityInfo cityObj = new CityInfo(city.id, city.city, city.city_ascii, city.population, city.admin_name, city.lat, city.lng, city.capital);
                 if (!CityCatalogue.ContainsKey(city.city))
                 {
                     CityCatalogue.Add(city.city, new List<CityInfo>());
@@ -102,21 +105,22 @@ namespace INFO5101_Project1
         private static void ParseCSV(string fileName)
         {
             StreamReader reader = new StreamReader(fileName);
-            while(!reader.EndOfStream)
+            while (!reader.EndOfStream)
             {
                 string line = reader.ReadLine();
                 string[] values = line.Split(",");
                 int.TryParse(values[8], out int population);
                 string name = values[0];
                 string ascii = values[1];
-                double.TryParse(values[2],out double lat);
+                double.TryParse(values[2], out double lat);
                 double.TryParse(values[3], out double lng);
-                int.TryParse(values[8],out int cityId);
+                int.TryParse(values[8], out int cityId);
                 string province = values[5];
+                string capital = values[6];
 
                 //int CityId, string CityName, string CityAscii, int Population, string Province, double latitude, double longitude)
                 //city[0] , city_ascii[1] , lat[2] , lng[3] , country[4] , admin_name[5] , capital[6] , population[7] , id[8]
-                CityInfo city = new CityInfo(cityId,name,ascii,population,province,lat,lng);
+                CityInfo city = new CityInfo(cityId, name, ascii, population, province, lat, lng, capital);
                 if (!CityCatalogue.ContainsKey(name))
                 {
                     CityCatalogue.Add(name, new List<CityInfo>());
