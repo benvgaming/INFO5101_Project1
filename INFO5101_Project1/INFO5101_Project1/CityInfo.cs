@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,8 +56,11 @@ namespace INFO5101_Project1
         {
             return longitude;
         }
-
-
+        //trying to get the IComparer to work for Options 4/5.
+        //public static IComparer SortYearAscending()
+        //{
+        //    return (IComparer)new SortPopByValue();
+        //}
 
         public string GetName()
         {

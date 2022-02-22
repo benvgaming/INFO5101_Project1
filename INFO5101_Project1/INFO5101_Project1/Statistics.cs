@@ -6,21 +6,46 @@ using System.Threading.Tasks;
 
 namespace INFO5101_Project1
 {
-    public class Statistics 
+    public class Statistics
     {
         public Dictionary<string, List<CityInfo>> CityCatalogue;
 
         public Statistics(string fileName, string type) => CityCatalogue = DataModeler.ParseFile(fileName, type); //End of c'tor
 
-        public CityInfo DisplayCityInformation(string CityName)
-        {
-            // we will need to do the logic if there is more than one in here.
-            return CityCatalogue[CityName].First();
-            // CityInfo city;
-            // CityCatalogue.TryGetValue(CityName, out city);
-            // return city;
+        //Name:DisplayCityInformation
+        //Description: Returns the city information for the given city name
+        //Parameters:CityName 
+        //Return: String Format of all the information 
+        public void DisplayCityInformation(string CityName)
+        {   //Returns the city information for the given city name
+            List<CityInfo> cityInfo = new List<CityInfo>();
+            foreach (KeyValuePair<string, List<CityInfo>> entry in CityCatalogue)
+            {
+                if (entry.Key == CityName)
+                {
+                    cityInfo = entry.Value;
+                    break;
+                }
+            }
+            //print our the city information
+            foreach (CityInfo city in cityInfo)
+            {
+                //display the information of the city provided
+                Console.WriteLine("\nCity Name: " + city.GetName());
+                Console.WriteLine("Population: " + city.GetPopulation());
+                Console.WriteLine("Province: " + city.GetProvince());
+                Console.WriteLine("Latitude: " + city.GetLatitude());
+                Console.WriteLine("Longitude: " + city.GetLongitude());
+                Console.WriteLine("\n");
+            }
+
+
         }// End of DisplayCityInformation
 
+        //Name:DisplayLargestPopulationCity
+        //Description: Returns the city information for the largest population city
+        //Parameters: province
+        //Return: CityInfo
         public CityInfo DisplayLargestPopulationCity(string province)
         {
             List<CityInfo> city = null;
@@ -36,11 +61,15 @@ namespace INFO5101_Project1
             {
                 //Need to be fixed
                 city = CityList.Values.Max();
-                
+
             }
             return city.First();
         }// End of DisplayLargestPopulationCity
 
+        //Name:DisplaySmallestPopulationCity
+        //Description: Returns the city information for the smallest population city
+        //Parameters:province
+        //Return: CityInfo
         public CityInfo DisplaySmallestPopulationCity(string province)
         {
             List<CityInfo> city = null;
@@ -60,6 +89,10 @@ namespace INFO5101_Project1
             return city.First();
         }// End of DisplaySmallestPopulationCity
 
+        //Name:ShowCityOnMap
+        //Description:
+        //Parameters: Province,CityName
+        //Return: 
         public void ShowCityOnMap(string CityName, string Province)
         {
 
@@ -79,12 +112,16 @@ namespace INFO5101_Project1
                 }
             }
 
-            if(lat != 0.0 && lng != 0.0)
+            if (lat != 0.0 && lng != 0.0)
                 System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo { FileName = "https://maps.google.com/?q=" + lat + "," + lng, UseShellExecute = true });
             else
                 Console.WriteLine("Can't find city/province, be sure the name of both city and province are correct");
         }// End of ShowCityOnMap
 
+        //Name:CalculateDistanceBetweenCities
+        //Description: calculate the distance between two cities u sing the DistanceTo method
+        //Parameters: City1,City2
+        //Return: String Format of the distance between the two cities
         public void CalculateDistanceBetweenCities(string CityName1, string CityName2)
         {
             // calculate the distance between two cities u sing the DistanceTo method
@@ -110,12 +147,16 @@ namespace INFO5101_Project1
             Console.WriteLine("The distance between {0} and {1} is {2} km", CityName1, CityName2, distance);
         }// End of CalculateDistanceBetweenCities
 
+        //Name:DisplayProvincePopulation
+        //Description: Display the population of the province
+        //Parameters: Province
+        //Return: String formated of the population of the province
         public void DisplayProvincePopulation(string Province)
         {
             if (Province == "Quebec")
                 Province = "Québec";
             int population = 0;
-            
+
             //display the population of the province
             foreach (KeyValuePair<string, List<CityInfo>> entry in CityCatalogue)
             {
@@ -124,12 +165,16 @@ namespace INFO5101_Project1
                     population += entry.Value[0].GetPopulation();
                 }
             }
-            if(population != 0)
+            if (population != 0)
                 Console.WriteLine("The population of {0} is {1}", Province, population);
             else
                 Console.WriteLine("Province's name is incorrect");
         }// End of DisplayProvincePopulation
 
+        //Name:DisplayProvinceCities
+        //Description: Display the cities in the province
+        //Parameters: Province
+        //Return:   List of cities in the province          
         public void DisplayProvinceCities(string Province)
         {
 
@@ -152,6 +197,11 @@ namespace INFO5101_Project1
             else
                 Console.WriteLine("Province's name is incorrect");
         }// End of DisplayProvinceCities
+
+        //Name:RankProvincesByPopulation
+        //Description: Display the provinces ranked by population
+        //Parameters: None
+        //Return:  List of provinces ranked by population
         public void RankProvincesByPopulation()
         {
             //rank the provinces by population
@@ -170,6 +220,11 @@ namespace INFO5101_Project1
 
         }// End of RankProvincesByPopulation
 
+
+        //Name:RankProvincesByCities
+        //Description: Display the provinces ranked by number of cities
+        //Parameters: None
+        //Return: List of provinces ranked by number of cities
         public void RankProvincesByCities()
         {
             //rank the provinces by number of cities
@@ -188,7 +243,10 @@ namespace INFO5101_Project1
 
         }// End of RankProvincesByCities
 
-
+        //Name:GetCapital
+        //Description: Display the capital of the province
+        //Parameters: Province
+        //Return: String formated of the capital of the province
         public CityInfo GetCapital(string Province)
         {
             //get the capital of the province
@@ -206,6 +264,10 @@ namespace INFO5101_Project1
             return capital;
         }// End of GetCapital
 
+        //Name: DistanceTo 
+        //Description: Calculate the distance between two cities
+        //Parameters: lat1, lon1, lat2, lon2, unit
+        //Return: double distance
         public static double DistanceTo(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
         {
             double rlat1 = Math.PI * lat1 / 180;
@@ -231,5 +293,6 @@ namespace INFO5101_Project1
 
             return dist;
         }
+
     }//End of class
 }//End of namespace

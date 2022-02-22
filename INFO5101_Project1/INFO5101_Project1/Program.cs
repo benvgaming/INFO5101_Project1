@@ -111,7 +111,13 @@ namespace INFO5101_Project1
                         switch (selection)
                         {
                             case 1:
-                                //DisplayCityInformation    
+                                Console.WriteLine("\nEnter the name of a city to display its information");
+                                city1 = Console.ReadLine();
+                                if (city1 != null)
+                                    statistics.DisplayCityInformation(city1);
+                                else
+                                    Console.WriteLine($"\n{city1} is not in the city list");
+
                                 break;
 
                             case 2:

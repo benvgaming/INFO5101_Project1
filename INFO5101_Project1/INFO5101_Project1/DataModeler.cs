@@ -14,13 +14,13 @@ namespace INFO5101_Project1
 
         private class JsonCity
         {
-            public string city = "" ;
-            public string city_ascii = "" ;
+            public string city = "";
+            public string city_ascii = "";
             public double lat = 0.0;
             public double lng = 0.0;
-            public string country = "" ;
-            public string admin_name = "" ;
-            public string capital = "" ;
+            public string country = "";
+            public string admin_name = "";
+            public string capital = "";
             public int population = 0;
             public int id = 0;
 
@@ -28,6 +28,10 @@ namespace INFO5101_Project1
 
         public static Dictionary<string, List<CityInfo>> CityCatalogue = new Dictionary<string, List<CityInfo>>();
 
+        //name: ParseXML
+        //description: parses the XML file and creates a dictionary of cities
+        //parameters: string fileName
+        //returns: the parsed dictionary filled with cities and their information
         private static void ParseXML(string fileName)
         {
             StreamReader reader = new StreamReader(fileName);
@@ -81,6 +85,11 @@ namespace INFO5101_Project1
                 CityCatalogue[city.GetName()].Add(city);
             }
         }
+
+        //name: ParseJSON
+        //description: parses the JSON file and creates a dictionary of cities
+        //parameters: string fileName
+        //returns: the parsed dictionary filled with cities and their information
         private static void ParseJSON(string fileName)
         {
             StreamReader reader = new StreamReader(fileName);
@@ -103,6 +112,10 @@ namespace INFO5101_Project1
             }
         }//End of ParseJSON
 
+        //name: ParseCSV
+        //description: parses the CSV file and creates a dictionary of cities
+        //parameters: string fileName
+        //returns: the parsed dictionary filled with cities and their information
         private static void ParseCSV(string fileName)
         {
             StreamReader reader = new StreamReader(fileName);
@@ -131,6 +144,10 @@ namespace INFO5101_Project1
             }
         }//End of ParseCSV
 
+        //name: ParseFile
+        //description: parses the file and creates a dictionary of cities
+        //parameters: string fileName
+        //returns: the parsed dictionary filled with cities and their information
         public static Dictionary<string, List<CityInfo>> ParseFile(string fileName, string type)
         {
             switch (type)
