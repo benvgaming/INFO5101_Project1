@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/* Authors: Manh Cuong Nguyen, Devon Tully, James Thornton
+ * Class: CityInfo.cs
+ * Purposes: to store city's information
+ */
+
+
+using System;
 
 namespace INFO5101_Project1
 {
@@ -28,43 +29,38 @@ namespace INFO5101_Project1
             this.latitude = latitude;
             this.longitude = longitude;
             this.Capital = capital;
-        }
+        }//End of CityInfo
 
         public string GetProvince()
         {
             return Province;
-        }
+        }//End of GetProvince
 
         public int GetPopulation()
         {
             return Population;
-        }
+        }//End of GetPopulation
 
         public string GetCapital()
         {
             return Capital;
-        }
+        }//End of GetCapital
         public Tuple<double, double> GetLocation()
         {
             return new Tuple<double, double>(latitude, longitude);
-        }
+        }//End of GetLocation
         public double GetLatitude()
         {
             return latitude;
-        }
+        }//End of GetLatitude
         public double GetLongitude()
         {
             return longitude;
-        }
-        //trying to get the IComparer to work for Options 4/5.
-        //public static IComparer SortYearAscending()
-        //{
-        //    return (IComparer)new SortPopByValue();
-        //}
+        }//End of GetLongitude
 
         public string GetName()
         {
             return CityName;
-        }
+        }//End of GetName
     }//End of class
 }//End of namespace

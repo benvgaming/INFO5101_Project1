@@ -1,8 +1,9 @@
-﻿using System;
+﻿/* Authors: Manh Cuong Nguyen, Devon Tully, James Thornton
+ * Class: DataModeler.cs
+ * Purposes: Parse files to create dictionary for the program
+ */
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
 using System.Xml;
@@ -24,7 +25,7 @@ namespace INFO5101_Project1
             public int population = 0;
             public int id = 0;
 
-        }
+        }//End of JsonCity Class
 
         public static Dictionary<string, List<CityInfo>> CityCatalogue;
 
@@ -85,7 +86,7 @@ namespace INFO5101_Project1
 
                 CityCatalogue[city.GetName()].Add(city);
             }
-        }
+        }//End of ParseXML
 
         //name: ParseJSON
         //description: parses the JSON file and creates a dictionary of cities
@@ -169,6 +170,10 @@ namespace INFO5101_Project1
             }
         }//End of ParseFile()
 
+        //name: DeFrenchify
+        //description: convert all French letters to English so user type easier
+        //parameters: string input
+        //returns: the converted string
         private static string DeFrenchify(string input)
         {
             return input.Replace('é', 'e').Replace('è', 'e').Replace("Î", "I").Replace('â', 'a').Replace('ô', 'o');

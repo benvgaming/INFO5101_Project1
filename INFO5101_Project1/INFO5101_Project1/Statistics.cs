@@ -1,8 +1,10 @@
-﻿using System;
+﻿/* Authors: Manh Cuong Nguyen, Devon Tully, James Thornton
+ * Class: Statistics.cs
+ * Purposes: Convert the data from files to statistics for user
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace INFO5101_Project1
 {
@@ -44,9 +46,6 @@ namespace INFO5101_Project1
                 Console.WriteLine("That city was not found in the list!");
             }
             //print our the city information
-
-
-
         }// End of DisplayCityInformation
 
         //Name:DisplayLargestPopulationCity
@@ -69,7 +68,6 @@ namespace INFO5101_Project1
             }
             if (CityList.Count > 0)
             {
-                //Need to be fixed
                 city = CityList.Max;
 
             }
@@ -96,9 +94,7 @@ namespace INFO5101_Project1
             }
             if (CityList.Count > 0)
             {
-                //Need to be fixed
                 city = CityList.Min;
-
             }
             return city;
         }// End of DisplaySmallestPopulationCity
@@ -351,7 +347,7 @@ namespace INFO5101_Project1
             }
 
             return dist;
-        }
+        }//End of DistanceTo
 
     }//End of class
 }//End of namespace

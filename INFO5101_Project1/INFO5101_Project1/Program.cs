@@ -1,5 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/* Authors: Manh Cuong Nguyen, Devon Tully, James Thornton
+ * Class: Program.cs
+ * Purposes: The UI for the program
+ */
+
+using System;
 namespace INFO5101_Project1
 {
     class Program
@@ -42,7 +46,6 @@ namespace INFO5101_Project1
                     } while (!validChoice);
 
                     string choice = "";
-                    //Dictionary<string, List<CityInfo>> cityList = new Dictionary<string, List<CityInfo>>();
                     Statistics statistics = null;
                     string fileName = "";
                     switch (selection)

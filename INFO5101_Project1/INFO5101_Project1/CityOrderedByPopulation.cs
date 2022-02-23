@@ -1,8 +1,9 @@
-﻿using System;
+﻿/* Authors: Manh Cuong Nguyen, Devon Tully, James Thornton
+ * Class: CityOrderedByPopulation.cs
+ * Purposes: Helper class to make CityInfo class comparable
+ */
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace INFO5101_Project1
 {
@@ -11,7 +12,6 @@ namespace INFO5101_Project1
         public int Compare(CityInfo x, CityInfo y)
         {
             return x.GetPopulation().CompareTo(y.GetPopulation());
-        }
-
-    }
-}
+        }//End of Compare
+    }//End of class
+}//End of Namespace
