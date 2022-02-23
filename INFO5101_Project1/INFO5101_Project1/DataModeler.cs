@@ -105,12 +105,12 @@ namespace INFO5101_Project1
             foreach (JsonCity city in output)
             {
                 CityInfo cityObj = new CityInfo(city.id, DeFrenchify(city.city), city.city_ascii, city.population, DeFrenchify(city.admin_name), city.lat, city.lng, city.capital);
-                if (!CityCatalogue.ContainsKey(city.city))
+                if (!CityCatalogue.ContainsKey(DeFrenchify(city.city)))
                 {
-                    CityCatalogue.Add(city.city, new List<CityInfo>());
+                    CityCatalogue.Add(DeFrenchify(city.city), new List<CityInfo>());
                 }
 
-                CityCatalogue[city.city].Add(cityObj);
+                CityCatalogue[DeFrenchify(city.city)].Add(cityObj);
             }
         }//End of ParseJSON
 
