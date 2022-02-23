@@ -16,8 +16,6 @@ namespace INFO5101_Project1
             {
                 do
                 {
-
-
                     Console.WriteLine("=============================");
                     Console.WriteLine("City Info Program");
                     Console.WriteLine("=============================");
@@ -44,7 +42,7 @@ namespace INFO5101_Project1
                     } while (!validChoice);
 
                     string choice = "";
-                    Dictionary<string, List<CityInfo>> cityList = new Dictionary<string, List<CityInfo>>();
+                    //Dictionary<string, List<CityInfo>> cityList = new Dictionary<string, List<CityInfo>>();
                     Statistics statistics = null;
                     string fileName = "";
                     switch (selection)
@@ -70,12 +68,9 @@ namespace INFO5101_Project1
                     }
 
                     bool isDone = false;
-
+                    Console.WriteLine($"\nA city catalouge has now been populated from {fileName}");
                     do
                     {
-
-
-                        Console.WriteLine($"\nA city catalouge has now been populated from {fileName}");
                         Console.WriteLine($"\nFetching list of available data query routines that can be run on the {fileName}");
                         Console.WriteLine("\n1)Display city information" +
                           "\n2)Display province cities" +
@@ -84,8 +79,10 @@ namespace INFO5101_Project1
                           "\n5)Display city with smallest population in a province" +
                           "\n6)Distance between cities" +
                           "\n7)Display city on website" +
+                          "\n8)Display sorted list of provinces by population" +
+                          "\n9)Display sorted list of provinces by number of cities" +
 
-                          "\n8)Restart the program and choose another file type to query" +
+                          "\n10)Restart the program and choose another file type to query" +
                           "\n0)Exit the program");
 
                         validChoice = false;
@@ -95,13 +92,13 @@ namespace INFO5101_Project1
                             Console.WriteLine($"\nSelect a data query routine from the list above for the {fileName} (e.g 1, 2)");
                             if (int.TryParse(Console.ReadLine(), out selection))
                             {
-                                if (selection < 0 || selection > 7)
-                                    Console.WriteLine("The selection must be 0 to 7");
+                                if (selection < 0 || selection > 10)
+                                    Console.WriteLine("The selection must be 0 to 10");
                                 else
                                     validChoice = true;
                             }
                             else
-                                Console.WriteLine("The selection must be 0 to 7");
+                                Console.WriteLine("The selection must be 0 to 10");
                         } while (!validChoice);
 
                         string province = "";
@@ -113,7 +110,7 @@ namespace INFO5101_Project1
                             case 1:
                                 Console.WriteLine("\nEnter the name of a city to display its information");
                                 city1 = Console.ReadLine();
-                                if (city1 != null)
+                                if (city1 != "")
                                     statistics.DisplayCityInformation(city1);
                                 else
                                     Console.WriteLine($"\n{city1} is not in the city list");
@@ -137,14 +134,14 @@ namespace INFO5101_Project1
                                 Console.WriteLine("Enter Province's Name: ");
                                 province = Console.ReadLine();
                                 city = statistics.DisplayLargestPopulationCity(province);
-                                Console.WriteLine($"City with the smallest population in {province} province is {city.GetName()}");
+                                Console.WriteLine($"City with the largest population in {province} is {city.GetName()}");
                                 break;
                             case 5:
                                 //Display smallest population
                                 Console.WriteLine("Enter Province's Name: ");
                                 province = Console.ReadLine();
-                                city = statistics.DisplayLargestPopulationCity(province);
-                                Console.WriteLine($"City with the smallest population in {province} province is {city.GetName()}");
+                                city = statistics.DisplaySmallestPopulationCity(province);
+                                Console.WriteLine($"City with the smallest population in {province} is {city.GetName()}");
                                 break;
                             case 6:
                                 //Distance between cities
@@ -163,6 +160,12 @@ namespace INFO5101_Project1
                                 statistics.ShowCityOnMap(city1, province);
                                 break;
                             case 8:
+                                statistics.RankProvincesByPopulation();
+                                break;
+                            case 9:
+                                statistics.RankProvincesByCities();
+                                break;
+                            case 10:
                                 isDone = true;
                                 Console.Clear();
                                 break;

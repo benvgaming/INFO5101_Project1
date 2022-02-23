@@ -1,25 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\INFO-5101 C#Advance\\New folder (2)\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1.csproj": {}
+    "D:\\Year3\\Group2Group\\C#proj\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1.csproj": {}
   },
   "projects": {
-    "E:\\INFO-5101 C#Advance\\New folder (2)\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1.csproj": {
+    "D:\\Year3\\Group2Group\\C#proj\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\INFO-5101 C#Advance\\New folder (2)\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1.csproj",
+        "projectUniqueName": "D:\\Year3\\Group2Group\\C#proj\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1.csproj",
         "projectName": "INFO5101_Project1",
-        "projectPath": "E:\\INFO-5101 C#Advance\\New folder (2)\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1.csproj",
-        "packagesPath": "C:\\Users\\tully\\.nuget\\packages\\",
-        "outputPath": "E:\\INFO-5101 C#Advance\\New folder (2)\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1\\obj\\",
+        "projectPath": "D:\\Year3\\Group2Group\\C#proj\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1.csproj",
+        "packagesPath": "C:\\Users\\James\\.nuget\\packages\\",
+        "outputPath": "D:\\Year3\\Group2Group\\C#proj\\INFO5101_Project1\\INFO5101_Project1\\INFO5101_Project1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\tully\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\James\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
@@ -71,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

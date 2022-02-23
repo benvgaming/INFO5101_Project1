@@ -27,17 +27,24 @@ namespace INFO5101_Project1
                     break;
                 }
             }
-            //print our the city information
-            foreach (CityInfo city in cityInfo)
+            if(cityInfo.Count > 0)
             {
-                //display the information of the city provided
-                Console.WriteLine("\nCity Name: " + city.GetName());
-                Console.WriteLine("Population: " + city.GetPopulation());
-                Console.WriteLine("Province: " + city.GetProvince());
-                Console.WriteLine("Latitude: " + city.GetLatitude());
-                Console.WriteLine("Longitude: " + city.GetLongitude());
-                Console.WriteLine("\n");
+                foreach (CityInfo city in cityInfo)
+                {
+                    //display the information of the city provided
+                    Console.WriteLine("\nCity Name: " + city.GetName());
+                    Console.WriteLine("Population: " + city.GetPopulation());
+                    Console.WriteLine("Province: " + city.GetProvince());
+                    Console.WriteLine("Latitude: " + city.GetLatitude());
+                    Console.WriteLine("Longitude: " + city.GetLongitude());
+                    Console.WriteLine("\n");
+                }
+            } else
+            {
+                Console.WriteLine("That city was not found in the list!");
             }
+            //print our the city information
+
 
 
         }// End of DisplayCityInformation
@@ -48,22 +55,25 @@ namespace INFO5101_Project1
         //Return: CityInfo
         public CityInfo DisplayLargestPopulationCity(string province)
         {
-            List<CityInfo> city = null;
-            Dictionary<string, List<CityInfo>> CityList = new Dictionary<string, List<CityInfo>>();
+            CityInfo city = null;
+            SortedSet<CityInfo> CityList = new SortedSet<CityInfo>(new CityOrderedByPopulation());
             foreach (KeyValuePair<string, List<CityInfo>> entry in CityCatalogue)
             {
-                if (entry.Value[0].GetProvince() == province)
+                foreach (CityInfo cityItem in entry.Value)
                 {
-                    CityList.Add(entry.Key, entry.Value);
+                    if (cityItem.GetProvince() == province)
+                    {
+                        CityList.Add(cityItem);
+                    }
                 }
             }
             if (CityList.Count > 0)
             {
                 //Need to be fixed
-                city = CityList.Values.Max();
+                city = CityList.Max;
 
             }
-            return city.First();
+            return city;
         }// End of DisplayLargestPopulationCity
 
         //Name:DisplaySmallestPopulationCity
@@ -72,21 +82,25 @@ namespace INFO5101_Project1
         //Return: CityInfo
         public CityInfo DisplaySmallestPopulationCity(string province)
         {
-            List<CityInfo> city = null;
-            Dictionary<string, List<CityInfo>> CityList = new Dictionary<string, List<CityInfo>>();
+            CityInfo city = null;
+            SortedSet<CityInfo> CityList = new SortedSet<CityInfo>(new CityOrderedByPopulation());
             foreach (KeyValuePair<string, List<CityInfo>> entry in CityCatalogue)
             {
-                if (entry.Value[0].GetProvince() == province)
+                foreach (CityInfo cityItem in entry.Value)
                 {
-                    CityList.Add(entry.Key, entry.Value);
+                    if (cityItem.GetProvince() == province)
+                    {
+                        CityList.Add(cityItem);
+                    }
                 }
             }
             if (CityList.Count > 0)
             {
                 //Need to be fixed
-                city = CityList.Values.Min();
+                city = CityList.Min;
+
             }
-            return city.First();
+            return city;
         }// End of DisplaySmallestPopulationCity
 
         //Name:ShowCityOnMap
@@ -127,24 +141,38 @@ namespace INFO5101_Project1
             // calculate the distance between two cities u sing the DistanceTo method
             //get latitude and longitude of each city
             double lat1 = 0, lat2 = 0, lon1 = 0, lon2 = 0;
+            bool foundOne = false;
+            bool foundTwo = false;
             foreach (KeyValuePair<string, List<CityInfo>> entry in CityCatalogue)
             {
                 if (entry.Value[0].GetName() == CityName1)
                 {
-
+                    foundOne = true;
                     lat1 = entry.Value[0].GetLatitude();
                     lon1 = entry.Value[0].GetLongitude();
                 }
                 if (entry.Value[0].GetName() == CityName2)
                 {
+                    foundTwo = true;
                     lat2 = entry.Value[0].GetLatitude();
                     lon2 = entry.Value[0].GetLongitude();
                 }
             }
-            //calculate the distance between the two cities
-            double distance = DistanceTo(lat1, lon1, lat2, lon2, 'K');
-            //display the distance between the two cities
-            Console.WriteLine("The distance between {0} and {1} is {2} km", CityName1, CityName2, distance);
+
+            if(foundOne && foundTwo)
+            {
+                //calculate the distance between the two cities
+                double distance = DistanceTo(lat1, lon1, lat2, lon2, 'K');
+                //display the distance between the two cities
+                Console.WriteLine("The distance between {0} and {1} is {2} km", CityName1, CityName2, distance);
+            } else
+            {
+                string errorMsg = "Error: ";
+                if (!foundOne) errorMsg += "City one not found. ";
+                if (!foundTwo) errorMsg += "City two not found. ";
+                Console.WriteLine(errorMsg);
+            }
+
         }// End of CalculateDistanceBetweenCities
 
         //Name:DisplayProvincePopulation
@@ -153,8 +181,6 @@ namespace INFO5101_Project1
         //Return: String formated of the population of the province
         public void DisplayProvincePopulation(string Province)
         {
-            if (Province == "Quebec")
-                Province = "Québec";
             int population = 0;
 
             //display the population of the province
@@ -177,22 +203,22 @@ namespace INFO5101_Project1
         //Return:   List of cities in the province          
         public void DisplayProvinceCities(string Province)
         {
-
-            if (Province == "Quebec")
-                Province = "Québec";
             //display the cities in the province
-            Dictionary<string, List<CityInfo>> CityList = new Dictionary<string, List<CityInfo>>();
+            List<CityInfo> CityList = new List<CityInfo>();
             foreach (KeyValuePair<string, List<CityInfo>> entry in CityCatalogue)
             {
-                if (entry.Value[0].GetProvince() == Province)
+                foreach(CityInfo city in entry.Value)
                 {
-                    CityList.Add(entry.Key, entry.Value);
+                    if(city.GetProvince() == Province)
+                    {
+                        CityList.Add(city);
+                    }
                 }
             }
             if (CityList.Count > 0)
-                foreach (var entry in CityList.Values)
+                foreach (CityInfo city in CityList)
                 {
-                    Console.WriteLine(entry.First().GetName());
+                    Console.WriteLine(city.GetName());
                 }
             else
                 Console.WriteLine("Province's name is incorrect");
@@ -207,16 +233,33 @@ namespace INFO5101_Project1
             //rank the provinces by population
             //sort the provinces by population
             //display the provinces in order of population
-            List<KeyValuePair<string, int>> ProvinceList = new List<KeyValuePair<string, int>>();
+            Dictionary<string, long> Provinces = new Dictionary<string, long>();
             foreach (KeyValuePair<string, List<CityInfo>> entry in CityCatalogue)
             {
-                ProvinceList.Add(new KeyValuePair<string, int>(entry.Value[0].GetProvince(), entry.Value[0].GetPopulation()));
+                foreach(CityInfo info in entry.Value)
+                {
+                    if (Provinces.ContainsKey(info.GetProvince()))
+                    {
+                        Provinces[info.GetProvince()] += info.GetPopulation();
+                    } 
+                    else
+                    {
+                        Provinces.Add(info.GetProvince(), info.GetPopulation());
+                    }
+                }
             }
-            ProvinceList.Sort((x, y) => y.Value.CompareTo(x.Value));
-            foreach (KeyValuePair<string, int> entry in ProvinceList)
+            SortedSet<Tuple<string, long>> sortedList = new SortedSet<Tuple<string, long>>(new ProvinceOrderedByPopulation());
+            foreach(KeyValuePair<string, long> province in Provinces)
             {
-                Console.WriteLine(entry.Key + " " + entry.Value);
+                sortedList.Add(new Tuple<string, long>(province.Key, province.Value));
             }
+            
+            foreach (Tuple<string, long> province in sortedList)
+            {
+                if (province.Item1 != "" && province.Item1 != "admin_name")
+                    Console.WriteLine($"{province.Item1} Population: {province.Item2}");
+            }
+
 
         }// End of RankProvincesByPopulation
 
@@ -230,15 +273,31 @@ namespace INFO5101_Project1
             //rank the provinces by number of cities
             //sort the provinces by number of cities
             //display the provinces in order of number of cities
-            List<KeyValuePair<string, int>> ProvinceList = new List<KeyValuePair<string, int>>();
+            Dictionary<string, long> Provinces = new Dictionary<string, long>();
             foreach (KeyValuePair<string, List<CityInfo>> entry in CityCatalogue)
             {
-                ProvinceList.Add(new KeyValuePair<string, int>(entry.Value[0].GetProvince(), entry.Value.Count));
+                foreach (CityInfo info in entry.Value)
+                {
+                    if (Provinces.ContainsKey(info.GetProvince()))
+                    {
+                        Provinces[info.GetProvince()] += 1;
+                    }
+                    else
+                    {
+                        Provinces.Add(info.GetProvince(), 1);
+                    }
+                }
             }
-            ProvinceList.Sort((x, y) => y.Value.CompareTo(x.Value));
-            foreach (KeyValuePair<string, int> entry in ProvinceList)
+            SortedSet<Tuple<string, long>> sortedList = new SortedSet<Tuple<string, long>>(new ProvinceOrderedByPopulation());
+            foreach (KeyValuePair<string, long> province in Provinces)
             {
-                Console.WriteLine(entry.Key + " " + entry.Value);
+                sortedList.Add(new Tuple<string, long>(province.Key, province.Value));
+            }
+
+            foreach (Tuple<string, long> province in sortedList)
+            {
+                if (province.Item1 != "" && province.Item1 != "admin_name")
+                    Console.WriteLine($"{province.Item1} Cities: {province.Item2}");
             }
 
         }// End of RankProvincesByCities

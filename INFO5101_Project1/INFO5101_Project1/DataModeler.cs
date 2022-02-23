@@ -26,7 +26,7 @@ namespace INFO5101_Project1
 
         }
 
-        public static Dictionary<string, List<CityInfo>> CityCatalogue = new Dictionary<string, List<CityInfo>>();
+        public static Dictionary<string, List<CityInfo>> CityCatalogue;
 
         //name: ParseXML
         //description: parses the XML file and creates a dictionary of cities
@@ -34,6 +34,7 @@ namespace INFO5101_Project1
         //returns: the parsed dictionary filled with cities and their information
         private static void ParseXML(string fileName)
         {
+
             StreamReader reader = new StreamReader(fileName);
             string rawXml = "";
             while (!reader.EndOfStream)
@@ -64,10 +65,10 @@ namespace INFO5101_Project1
                 cities.Add(
                     new CityInfo(
                         id,
-                        node.ChildNodes[0].InnerText,
+                        DeFrenchify(node.ChildNodes[0].InnerText),
                         node.ChildNodes[1].InnerText,
                         population,
-                        node.ChildNodes[5].InnerText,
+                        DeFrenchify(node.ChildNodes[5].InnerText),
                         lat,
                         lng,
                         capital
@@ -102,7 +103,7 @@ namespace INFO5101_Project1
 
             foreach (JsonCity city in output)
             {
-                CityInfo cityObj = new CityInfo(city.id, city.city, city.city_ascii, city.population, city.admin_name, city.lat, city.lng, city.capital);
+                CityInfo cityObj = new CityInfo(city.id, DeFrenchify(city.city), city.city_ascii, city.population, DeFrenchify(city.admin_name), city.lat, city.lng, city.capital);
                 if (!CityCatalogue.ContainsKey(city.city))
                 {
                     CityCatalogue.Add(city.city, new List<CityInfo>());
@@ -119,17 +120,18 @@ namespace INFO5101_Project1
         private static void ParseCSV(string fileName)
         {
             StreamReader reader = new StreamReader(fileName);
+            reader.ReadLine();
             while (!reader.EndOfStream)
             {
                 string line = reader.ReadLine();
                 string[] values = line.Split(",");
-                int.TryParse(values[8], out int population);
-                string name = values[0];
+                int.TryParse(values[7], out int population);
+                string name = DeFrenchify(values[0]);
                 string ascii = values[1];
                 double.TryParse(values[2], out double lat);
                 double.TryParse(values[3], out double lng);
                 int.TryParse(values[8], out int cityId);
-                string province = values[5];
+                string province = DeFrenchify(values[5]);
                 string capital = values[6];
 
                 //int CityId, string CityName, string CityAscii, int Population, string Province, double latitude, double longitude)
@@ -150,6 +152,7 @@ namespace INFO5101_Project1
         //returns: the parsed dictionary filled with cities and their information
         public static Dictionary<string, List<CityInfo>> ParseFile(string fileName, string type)
         {
+            CityCatalogue = new Dictionary<string, List<CityInfo>>();
             switch (type)
             {
                 case "xml":
@@ -165,5 +168,10 @@ namespace INFO5101_Project1
                     return new Dictionary<string, List<CityInfo>>();
             }
         }//End of ParseFile()
+
+        private static string DeFrenchify(string input)
+        {
+            return input.Replace('é', 'e').Replace('è', 'e').Replace("Î", "I").Replace('â', 'a').Replace('ô', 'o');
+        }
     }//End of class
 }//End of namespace
